@@ -19,7 +19,6 @@ func TestGet(t *testing.T) {
 		}
 	}
 	if result != expected {
-		t.Errorf("Test01 Error")
+		t.Errorf("TestGet Error")
 	}
-
 }
