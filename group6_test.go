@@ -53,12 +53,12 @@ func TestGet(t *testing.T) {
 }
 
 func TestJudgeTate(t *testing.T) {
-	result := 0
-	expected := 1
+	result := b.JudgeTate()
+	expected := true
 	b := &Board{
 		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}
-	b.JudgeTate()
+
 	if result != expected {
 		t.Errorf("TestJudgeTate Error")
 	}
