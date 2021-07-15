@@ -52,6 +52,25 @@ func TestGet(t *testing.T) {
 	}
 }
 
+func Test_JudgeYoko(t *testing.T) {
+	b := &Board{
+		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			1, 2, 3, 4, 5, 6, 7, 8, 9,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}
+	result := b.judgeYoko()
+	expected := true
+	if result != expected {
+		t.Errorf("Test_JudgeYoko Error")
+  }
+}
+
 func TestJudgeTate(t *testing.T) {
 	result := 0
 	expected := 1
@@ -61,5 +80,6 @@ func TestJudgeTate(t *testing.T) {
 	b.JudgeTate()
 	if result != expected {
 		t.Errorf("TestJudgeTate Error")
+
 	}
 }
