@@ -1,6 +1,9 @@
 package main
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 func Test_InputNum(t *testing.T) {
 	expected := 8
@@ -24,20 +27,20 @@ func Test_InputNum(t *testing.T) {
 	}
 
 }
-func TestHyouzi(t *testing.T) {
+func TestHyouji(t *testing.T) {
 	result := ""
 	expected := "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
 	b := &Board{
 		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}
-	result = b.hyouzi
+	result = b.hyouji
 	fmt.printf(result)
 }
 func TestGet(t *testing.T) {
 	result := ""
-	expected := "........."
+	expected := "0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0"
 	b := &Board{
-		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0},
+		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}
 	for i := 0; i < 9; i++ {
 		for j := 0; j < 9; j++ {
@@ -46,5 +49,37 @@ func TestGet(t *testing.T) {
 	}
 	if result != expected {
 		t.Errorf("TestGet Error")
+	}
+}
+
+func Test_JudgeYoko(t *testing.T) {
+	b := &Board{
+		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			1, 2, 3, 4, 5, 6, 7, 8, 9,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}
+	result := b.judgeYoko()
+	expected := true
+	if result != expected {
+		t.Errorf("Test_JudgeYoko Error")
+	}
+}
+
+func TestJudgeTate(t *testing.T) {
+	result := b.JudgeTate()
+	expected := true
+	b := &Board{
+		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}
+
+	if result != expected {
+		t.Errorf("TestJudgeTate Error")
+
 	}
 }

@@ -2,11 +2,49 @@ package main
 
 import (
 	"fmt"
+	"strconv"
 	//"os"
 )
 
 type Board struct {
 	tokens []int // tokens[0] -> (0,0), tokens[1] -> (0,1), ...
+}
+
+func (b *Board) get(x, y int) int {
+	return b.tokens[x+9*y]
+}
+
+func (b *Board) hyouji() {
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			s := ""
+			k = b.get(i, j)
+			s += strconv.Itoa(i) + " "
+		}
+		fmt.Println(s)
+	}
+}
+
+func (b *Board) judgeTate() bool {
+	n := 0
+	k := true
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			n = b.get(j, i)
+			if n != 0 {
+				break
+			}
+		}
+		for j := 0; j < 9; j++ {
+			if b.get(j, i) == 0 {
+				break
+			} else if n == b.get(j, i) {
+				k = false
+			}
+		}
+
+	}
+	return k
 }
 
 func (b *Board) put(x, y, value int) {
