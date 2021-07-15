@@ -2,27 +2,25 @@ package main
 
 import (
 	"fmt"
-	"os"
-
+	//"os"
 )
 
 type Board struct {
 	tokens []int // tokens[0] -> (0,0), tokens[1] -> (0,1), ...
 }
 
+//func (b *Board) get(x, y int) int {
+//	return b.tokens[x+9*y]
+//}
 
-func (b *Board) get(x, y int) int{
-    return b.tokens[x + 9*y]    
-}
-
-func (b *Board) hyouji(){
-    for i := 0; i < 9; i++ {
-				for j := 0; j < 9; j++ {
-					fmt.Printf(b.get(i, j))
-				}
-				fmt.Println("")
-    }
-}
+//func (b *Board) hyouji() {
+//	for i := 0; i < 9; i++ {
+//		for j := 0; j < 9; j++ {
+//			fmt.Printf(b.get(i, j))
+//		}
+//		fmt.Println("")
+//	}
+//}
 
 func (b *Board) put(x, y, value int) {
 
@@ -31,9 +29,36 @@ func (b *Board) put(x, y, value int) {
 		fmt.Println("Input Error !:すでに値が存在します")
 		return
 	}
-
+	//if b.judgeYoko() {
 	b.tokens[x+9*y] = value
+	//} else {
+	//	fmt.Println("Input Error !:　数字がかぶっています")
+	//}
 	return
+}
+
+func (b *Board) JudgeYoko() bool {
+
+	for i := 0; i < 9; i++ {
+
+		alreadyExist := make([]bool, 9)
+		for p := 0; p < 9; p++ {
+			alreadyExist[p] = false
+		}
+
+		for k := 0; k < 9; k++ {
+			//すでに存在する時
+			if b.tokens[k+9*i] == 0 {
+				continue
+			} else if alreadyExist[b.tokens[k+9*i]] {
+				return false
+			} else {
+				alreadyExist[b.tokens[k+9*i]] = true
+			}
+		}
+
+	}
+	return true
 }
 
 func (b *Board) input() {
@@ -64,13 +89,21 @@ func (b *Board) input() {
 
 	//入力した値を反映する
 	b.put(x, y, value)
+
 	return
 }
 
 func main() {
 	b := &Board{
-		tokens: []int{1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}
 	b.input()
 }
-
