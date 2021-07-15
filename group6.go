@@ -9,19 +9,6 @@ type Board struct {
 	tokens []int // tokens[0] -> (0,0), tokens[1] -> (0,1), ...
 }
 
-//func (b *Board) get(x, y int) int {
-//	return b.tokens[x+9*y]
-//}
-
-//func (b *Board) hyouji() {
-//	for i := 0; i < 9; i++ {
-//		for j := 0; j < 9; j++ {
-//			fmt.Printf(b.get(i, j))
-//		}
-//		fmt.Println("")
-//	}
-//}
-
 func (b *Board) put(x, y, value int) {
 
 	//すでに値が入っている場合 (初期状態は0)
@@ -29,8 +16,10 @@ func (b *Board) put(x, y, value int) {
 		fmt.Println("Input Error !:すでに値が存在します")
 		return
 	}
-	//if b.judgeYoko() {
+
 	b.tokens[x+9*y] = value
+	//if b.judgeYoko() {
+	//	b.tokens[x+9*y] = value
 	//} else {
 	//	fmt.Println("Input Error !:　数字がかぶっています")
 	//}
