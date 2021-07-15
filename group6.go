@@ -16,26 +16,32 @@ func (b *Board) get(x, y int) int {
 
 func (b *Board) hyouji() {
 	for i := 0; i < 9; i++ {
+		s := ""
 		for j := 0; j < 9; j++ {
-			s := ""
-			k = b.get(i, j)
-			s += strconv.Itoa(i) + " "
+
+			k := b.get(i, j)
+			s += strconv.Itoa(k) + " "
 		}
 		fmt.Println(s)
 	}
 }
 
-func (b *Board) judgeTate() bool {
+func (b *Board) JudgeTate() bool {
 	n := 0
+	m := 0
 	k := true
 	for i := 0; i < 9; i++ {
 		for j := 0; j < 9; j++ {
 			n = b.get(j, i)
 			if n != 0 {
+				m = j
 				break
 			}
 		}
 		for j := 0; j < 9; j++ {
+			if j == m {
+				continue
+			}
 			if b.get(j, i) == 0 {
 				break
 			} else if n == b.get(j, i) {
@@ -77,10 +83,10 @@ func (b *Board) JudgeYoko() bool {
 			//すでに存在する時
 			if b.tokens[k+9*i] == 0 {
 				continue
-			} else if alreadyExist[b.tokens[k+9*i]] {
+			} else if alreadyExist[b.tokens[k+9*i]-1] {
 				return false
 			} else {
-				alreadyExist[b.tokens[k+9*i]] = true
+				alreadyExist[b.tokens[k+9*i]-1] = true
 			}
 		}
 
@@ -133,4 +139,15 @@ func main() {
 			0, 0, 0, 0, 0, 0, 0, 0, 0},
 	}
 	b.input()
+	b.hyouji()
+	if b.JudgeYoko() == true {
+		fmt.Println("seikai!")
+	} else if b.JudgeYoko() == false {
+		fmt.Println("...")
+	}
+	if b.JudgeTate() == true {
+		fmt.Println("seikai!")
+	} else if b.JudgeTate() == false {
+		fmt.Println("...")
+	}
 }
