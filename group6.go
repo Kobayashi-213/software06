@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	//"math"
 	"strconv"
-	//"os"
 )
 
 type Board struct {
@@ -94,6 +94,34 @@ func (b *Board) JudgeYoko() bool {
 	return true
 }
 
+func (b *Board) Judge3x3() bool {
+
+	//どのブロックを判定するか
+	for i := 0; i < 9; i++ {
+		alreadyExist := make([]bool, 9)
+
+		//各ブロックの左上
+		//var tmp=int i/3
+		start := (i%3)*3 + int(i/3)*27
+
+		//各ブロックについて判定
+		for k := 0; k < 3; k++ {
+			for l := 0; l < 3; l++ {
+				//すでに存在する時
+				if b.tokens[start+k+9*l] == 0 {
+					continue
+				} else if alreadyExist[b.tokens[start+k+9*l]-1] {
+					//被ってる時
+					return false
+				} else {
+					alreadyExist[b.tokens[start+k+9*l]-1] = true
+				}
+			}
+		}
+	}
+	return true
+}
+
 func (b *Board) input() {
 	//Player1 がxとする
 	var x, y, value int
@@ -148,6 +176,11 @@ func main() {
 	if b.JudgeTate() == true {
 		fmt.Println("seikai!")
 	} else if b.JudgeTate() == false {
+		fmt.Println("...")
+	}
+	if b.Judge3x3() == true {
+		fmt.Println("seikai!_3x3")
+	} else if b.Judge3x3() == false {
 		fmt.Println("...")
 	}
 }
