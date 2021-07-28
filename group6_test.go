@@ -114,3 +114,41 @@ func Test_Judge3x3false(t *testing.T) {
 		t.Errorf("Test_Judge3x3false Error")
 	}
 }
+
+func Test_JudgeEmptytrue(t *testing.T) {
+	b := &Board{
+		tokens: []int{1, 2, 3, 1, 1, 1, 1, 1, 1,
+			4, 5, 6, 1, 1, 1, 1, 1, 1,
+			7, 8, 9, 1, 1, 1, 1, 1, 1,
+			1, 2, 3, 4, 5, 6, 7, 8, 9,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1},
+	}
+	result := b.JudgeEmpty()
+	expected := true
+	if result != expected {
+		t.Errorf("Test_JudgeEmptytrue Error")
+	}
+}
+
+func Test_JudgeEmptyfalse(t *testing.T) {
+	b := &Board{
+		tokens: []int{1, 2, 3, 1, 1, 1, 1, 1, 1,
+			4, 5, 6, 1, 1, 1, 1, 1, 1,
+			7, 8, 9, 1, 1, 1, 1, 1, 1,
+			1, 2, 3, 4, 5, 6, 7, 8, 9,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 1,
+			1, 1, 1, 1, 1, 1, 1, 1, 0},
+	}
+	result := b.JudgeEmpty()
+	expected := false
+	if result != expected {
+		t.Errorf("Test_JudgeEmptyfalse Error")
+	}
+}
