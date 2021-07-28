@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	//"math"
 	"strconv"
 )
 
@@ -39,6 +38,10 @@ func (b *Board) JudgeTate() bool {
 			}
 		}
 		for j := 0; j < 9; j++ {
+				break
+			}
+		}
+		for j := 0; j < 9; j++ {
 			if j == m {
 				continue
 			}
@@ -51,6 +54,10 @@ func (b *Board) JudgeTate() bool {
 
 	}
 	return k
+}
+
+func (b *Board) Judge3x3(){
+	
 }
 
 func (b *Board) put(x, y, value int) {
@@ -120,6 +127,7 @@ func (b *Board) Judge3x3() bool {
 	}
 	return true
 }
+
 func (b *Board) JudgeEmpty() bool {
 
 	for i := 0; i < 9; i++ {
