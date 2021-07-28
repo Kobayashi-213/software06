@@ -76,3 +76,41 @@ func TestJudgeTate(t *testing.T) {
 
 	}
 }
+
+func Test_Judge3x3true(t *testing.T) {
+	b := &Board{
+		tokens: []int{1, 2, 3, 0, 0, 0, 0, 0, 0,
+			4, 5, 6, 0, 0, 0, 0, 0, 0,
+			7, 8, 9, 0, 0, 0, 0, 0, 0,
+			1, 2, 3, 4, 5, 6, 7, 8, 9,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}
+	result := b.Judge3x3()
+	expected := true
+	if result != expected {
+		t.Errorf("Test_Judge3x3true Error")
+	}
+}
+
+func Test_Judge3x3false(t *testing.T) {
+	b := &Board{
+		tokens: []int{1, 1, 1, 0, 0, 0, 0, 0, 0,
+			1, 1, 1, 0, 0, 0, 0, 0, 0,
+			1, 1, 1, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0},
+	}
+	result := b.Judge3x3()
+	expected := false
+	if result != expected {
+		t.Errorf("Test_Judge3x3false Error")
+	}
+}
