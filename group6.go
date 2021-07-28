@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	//"math"
 	"strconv"
 )
 
@@ -53,21 +52,24 @@ func (b *Board) JudgeTate() bool {
 	return k
 }
 
-func (b *Board) put(x, y, value int) {
+func (b *Board) put(x, y, value int) bool {
 
 	//すでに値が入っている場合 (初期状態は0)
 	if b.tokens[x+9*y] != 0 {
 		fmt.Println("Input Error !:すでに値が存在します")
-		return
+		return false
 	}
 
 	b.tokens[x+9*y] = value
-	//if b.judgeYoko() {
-	//	b.tokens[x+9*y] = value
-	//} else {
-	//	fmt.Println("Input Error !:　数字がかぶっています")
-	//}
-	return
+
+	if b.JudgeYoko() && b.JudgeTate() && b.Judge3x3() {
+		return true
+	} else {
+		fmt.Println("Input Error !:　数字がかぶっています")
+		b.tokens[x+9*y] = 0
+		return false
+	}
+
 }
 
 func (b *Board) JudgeYoko() bool {
@@ -120,6 +122,7 @@ func (b *Board) Judge3x3() bool {
 	}
 	return true
 }
+
 func (b *Board) JudgeEmpty() bool {
 
 	for i := 0; i < 9; i++ {
@@ -132,7 +135,7 @@ func (b *Board) JudgeEmpty() bool {
 	return true
 }
 
-func (b *Board) input() {
+func (b *Board) input() bool {
 	//Player1 がxとする
 	var x, y, value int
 
@@ -159,49 +162,26 @@ func (b *Board) input() {
 	fmt.Scan(&value)
 
 	//入力した値を反映する
-	b.put(x, y, value)
+	return b.put(x, y, value)
 
-	return
 }
 
 func main() {
 	b := &Board{
-		tokens: []int{1, 9, 5, 2, 6, 8, 4, 7, 3,
-			2, 4, 8, 1, 3, 7, 5, 9, 6,
-			6, 3, 7, 9, 4, 5, 2, 8, 1,
-			9, 5, 6, 3, 2, 4, 7, 1, 8,
-			8, 1, 2, 6, 7, 9, 3, 5, 4,
-			3, 7, 4, 5, 8, 1, 6, 2, 9,
-			5, 8, 3, 4, 9, 2, 1, 6, 7,
-			7, 6, 1, 8, 5, 3, 9, 4, 0,
-			4, 2, 9, 7, 1, 6, 8, 3, 0},
+		tokens: []int{0, 0, 0, 0, 0, 0, 4, 7, 0,
+			2, 0, 8, 0, 3, 0, 0, 0, 0,
+			0, 0, 0, 0, 0, 0, 0, 0, 0,
+			0, 0, 0, 0, 2, 0, 0, 0, 8,
+			0, 1, 0, 0, 0, 0, 0, 0, 0,
+			0, 7, 4, 5, 0, 0, 6, 0, 0,
+			0, 0, 0, 4, 0, 0, 0, 0, 0,
+			0, 0, 1, 0, 0, 0, 0, 0, 2,
+			0, 0, 0, 7, 0, 6, 0, 0, 0},
 	}
 	b.hyouji()
 
 	for {
-		b.input()
-		if b.JudgeYoko() == true {
-			fmt.Println("seikai!")
-		} else if b.JudgeYoko() == false {
-			fmt.Println("...")
-			//入力取り消し
-
-			continue
-		}
-		if b.JudgeTate() == true {
-			fmt.Println("seikai!")
-		} else if b.JudgeTate() == false {
-			fmt.Println("...")
-			//入力取り消し
-
-			continue
-		}
-		if b.Judge3x3() == true {
-			fmt.Println("seikai!_3x3")
-		} else if b.Judge3x3() == false {
-			fmt.Println("...")
-			//入力取り消し
-
+		if !b.input() {
 			continue
 		}
 
