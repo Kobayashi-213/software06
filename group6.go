@@ -166,36 +166,54 @@ func (b *Board) input() {
 
 func main() {
 	b := &Board{
-		tokens: []int{0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0,
-			0, 0, 0, 0, 0, 0, 0, 0, 0},
+		tokens: []int{1, 9, 5, 2, 6, 8, 4, 7, 3,
+			2, 4, 8, 1, 3, 7, 5, 9, 6,
+			6, 3, 7, 9, 4, 5, 2, 8, 1,
+			9, 5, 6, 3, 2, 4, 7, 1, 8,
+			8, 1, 2, 6, 7, 9, 3, 5, 4,
+			3, 7, 4, 5, 8, 1, 6, 2, 9,
+			5, 8, 3, 4, 9, 2, 1, 6, 7,
+			7, 6, 1, 8, 5, 3, 9, 4, 0,
+			4, 2, 9, 7, 1, 6, 8, 3, 0},
 	}
-	b.input()
 	b.hyouji()
-	if b.JudgeYoko() == true {
-		fmt.Println("seikai!")
-	} else if b.JudgeYoko() == false {
-		fmt.Println("...")
+
+	for {
+		b.input()
+		if b.JudgeYoko() == true {
+			fmt.Println("seikai!")
+		} else if b.JudgeYoko() == false {
+			fmt.Println("...")
+			//入力取り消し
+
+			continue
+		}
+		if b.JudgeTate() == true {
+			fmt.Println("seikai!")
+		} else if b.JudgeTate() == false {
+			fmt.Println("...")
+			//入力取り消し
+
+			continue
+		}
+		if b.Judge3x3() == true {
+			fmt.Println("seikai!_3x3")
+		} else if b.Judge3x3() == false {
+			fmt.Println("...")
+			//入力取り消し
+
+			continue
+		}
+
+		b.hyouji()
+
+		if b.JudgeEmpty() == true {
+			fmt.Println("clear!!")
+			break
+		} else if b.JudgeEmpty() == false {
+			fmt.Println("next...")
+		}
+
 	}
-	if b.JudgeTate() == true {
-		fmt.Println("seikai!")
-	} else if b.JudgeTate() == false {
-		fmt.Println("...")
-	}
-	if b.Judge3x3() == true {
-		fmt.Println("seikai!_3x3")
-	} else if b.Judge3x3() == false {
-		fmt.Println("...")
-	}
-	if b.JudgeEmpty() == true {
-		fmt.Println("not Empty")
-	} else if b.JudgeEmpty() == false {
-		fmt.Println("empty!")
-	}
+
 }
