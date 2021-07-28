@@ -101,7 +101,6 @@ func (b *Board) Judge3x3() bool {
 		alreadyExist := make([]bool, 9)
 
 		//各ブロックの左上
-		//var tmp=int i/3
 		start := (i%3)*3 + int(i/3)*27
 
 		//各ブロックについて判定
@@ -116,6 +115,17 @@ func (b *Board) Judge3x3() bool {
 				} else {
 					alreadyExist[b.tokens[start+k+9*l]-1] = true
 				}
+			}
+		}
+	}
+	return true
+}
+func (b *Board) JudgeEmpty() bool {
+
+	for i := 0; i < 9; i++ {
+		for k := 0; k < 9; k++ {
+			if b.get(k, i) == 0 {
+				return false
 			}
 		}
 	}
@@ -182,5 +192,10 @@ func main() {
 		fmt.Println("seikai!_3x3")
 	} else if b.Judge3x3() == false {
 		fmt.Println("...")
+	}
+	if b.JudgeEmpty() == true {
+		fmt.Println("not Empty")
+	} else if b.JudgeEmpty() == false {
+		fmt.Println("empty!")
 	}
 }
