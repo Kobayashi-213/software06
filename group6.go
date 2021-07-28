@@ -53,21 +53,24 @@ func (b *Board) JudgeTate() bool {
 	return k
 }
 
-func (b *Board) put(x, y, value int) {
+func (b *Board) put(x, y, value int) bool {
 
 	//すでに値が入っている場合 (初期状態は0)
 	if b.tokens[x+9*y] != 0 {
 		fmt.Println("Input Error !:すでに値が存在します")
-		return
+		return false
 	}
 
 	b.tokens[x+9*y] = value
-	//if b.judgeYoko() {
-	//	b.tokens[x+9*y] = value
-	//} else {
-	//	fmt.Println("Input Error !:　数字がかぶっています")
-	//}
-	return
+
+	if b.JudgeYoko() && b.JudgeTate() && b.Judge3x3() {
+		return true
+	} else {
+		fmt.Println("Input Error !:　数字がかぶっています")
+		b.tokens[x+9*y] = 0
+		return false
+	}
+
 }
 
 func (b *Board) JudgeYoko() bool {
@@ -132,7 +135,7 @@ func (b *Board) JudgeEmpty() bool {
 	return true
 }
 
-func (b *Board) input() {
+func (b *Board) input() bool {
 	//Player1 がxとする
 	var x, y, value int
 
@@ -159,9 +162,8 @@ func (b *Board) input() {
 	fmt.Scan(&value)
 
 	//入力した値を反映する
-	b.put(x, y, value)
+	return b.put(x, y, value)
 
-	return
 }
 
 func main() {
@@ -179,29 +181,7 @@ func main() {
 	b.hyouji()
 
 	for {
-		b.input()
-		if b.JudgeYoko() == true {
-			fmt.Println("seikai!")
-		} else if b.JudgeYoko() == false {
-			fmt.Println("...")
-			//入力取り消し
-
-			continue
-		}
-		if b.JudgeTate() == true {
-			fmt.Println("seikai!")
-		} else if b.JudgeTate() == false {
-			fmt.Println("...")
-			//入力取り消し
-
-			continue
-		}
-		if b.Judge3x3() == true {
-			fmt.Println("seikai!_3x3")
-		} else if b.Judge3x3() == false {
-			fmt.Println("...")
-			//入力取り消し
-
+		if !b.input() {
 			continue
 		}
 
